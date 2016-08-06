@@ -100,7 +100,7 @@ float highpass_coef[] = {0.0008,-0.0000, 0.0006,-0.0005,-0.0001,-0.0007,-0.0004,
 	bool run=0;
 	
 	float scale_factor=22.0373;
-	short normalize=32767;
+	short normalize=32768;
 	short gain=1;
 	
 int main(int argc, char *argv[])
