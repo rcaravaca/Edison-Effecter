@@ -204,7 +204,9 @@ delayBufLength=retardos;*/
 			overdrive=true;			
 		else if (data[0]==6 && data[1]==2)
 			overdrive=false;
-	
+		
+		if (data[0]==0)
+			vol = data[1]/9.0;	
 
 	//************** Control de ganancia para cada filtro **************//	
 	/*	if (data[0]==1){
@@ -308,8 +310,7 @@ delayBufLength=retardos;*/
 			
 		
 			// ****** CONTROL DE VOLUMEN ******* 
-			if (data[0]==0)
-				vol = data[1]/9.0;
+			
 
 			Bff=Bff*vol;
 			Sample=Bff;
