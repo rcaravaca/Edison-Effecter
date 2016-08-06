@@ -111,9 +111,9 @@ int main(int argc, char *argv[])
 		Buffer_band[a]=0.0;
 		Buffer_high[a]=0.0;
 		//Normalizacion de coeficientes a 2^32
-		lowpass_coef[a]=lowpass_coef[a]*sacala_factor;
-		bandpass_coef[a]=bandpass_coef[a];	
-		highpass_coef[a]=highpass_coef[a];
+		lowpass_coef[a]=lowpass_coef[a]*scale_factor;
+		bandpass_coef[a]=bandpass_coef[a]*scale_factor;	
+		highpass_coef[a]=highpass_coef[a]*scale_factor;
 	}
 
 	//cout<<lowpass_coef[0]<<"\n";
@@ -251,7 +251,7 @@ delayBufLength=retardos;*/
 			}
 			
 			Buffer_high[order]=Buffer;
-			Buffer_band[order]=*Buffer;
+			Buffer_band[order]=Buffer;
 			Buffer_low[order]=Buffer;
 
 			low_pass=low_pass+(Buffer_low[order]*lowpass_coef[order]);
