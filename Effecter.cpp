@@ -113,8 +113,8 @@ int main(int argc, char *argv[])
 		Buffer_high[a]=0.0;
 		//Normalizacion de coeficientes a 2^32
 		lowpass_coef[a]=lowpass_coef[a]*scale_factor;
-		bandpass_coef[a]=bandpass_coef[a]*5.5069;	
-		highpass_coef[a]=highpass_coef[a]*1.4710;
+		bandpass_coef[a]=bandpass_coef[a]*scale_factor;	
+		highpass_coef[a]=highpass_coef[a]*scale_factor;
 	}
 
 	//cout<<lowpass_coef[0]<<"\n";
