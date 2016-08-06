@@ -240,14 +240,14 @@ delayBufLength=retardos;*/
 
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
-			Bff=Buffer*normalize;
+			//Bff=Buffer*normalize;
 			//printf("Muestra %i,Buffer Norm %f\n",buf[0],Buffer[0]);
 			//////////////Buffer[0]=buf[0];
 			//******* Pasa bajas ************************
 			
 			ecualizer (Buffer);
 			
-			//Bff=(low_pass+band_pass+high_pass)*normalize;
+			Bff=(low_pass+band_pass+high_pass)*normalize;
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
 			//Buffer[0]=high_pass+band_pass+low_pass;
 			// ****** EFECTO DELAY *************
