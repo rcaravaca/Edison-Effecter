@@ -241,15 +241,14 @@ delayBufLength=retardos;*/
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
 			//Bff=Buffer*normalize;
-			//printf("Muestra %i,Buffer Norm %f\n",buf[0],Buffer[0]);
-			//////////////Buffer[0]=buf[0];
-			//******* Pasa bajas ************************
-			
+
+			snd_pcm_pause(playback_handle,1);
 			ecualizer (Buffer);
-			
+			snd_pcm_pause(playback_handle,0);
 			Bff=(low_pass+band_pass+high_pass)*normalize;
-			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
-			//Buffer[0]=high_pass+band_pass+low_pass;
+
+
+
 			// ****** EFECTO DELAY *************
 		/*	channelData[j]=Buffer[0]; // Se llena el buffer con las muestras
 			if (++j>=numSamples)
