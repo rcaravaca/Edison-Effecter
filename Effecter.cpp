@@ -88,9 +88,9 @@ float highpass_coef[] = {0.0008,-0.0000, 0.0006,-0.0005,-0.0001,-0.0007,-0.0004,
 	
 
 
-	float low_pass;
-	float band_pass;
-	float high_pass;
+	float low_pass=0.0;
+	float band_pass=0.0;
+	float high_pass=0.0;
 
 
 	float Buffer_low[121]; //Buffer para filtro pasa bajas
@@ -101,7 +101,7 @@ float highpass_coef[] = {0.0008,-0.0000, 0.0006,-0.0005,-0.0001,-0.0007,-0.0004,
 	
 	float scale_factor=22.0373;
 	short normalize=32767;
-	short gain=3;
+	short gain=1;
 	
 int main(int argc, char *argv[])
 
