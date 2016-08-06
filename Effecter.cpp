@@ -100,7 +100,7 @@ float highpass_coef[] = {0.0008,-0.0000, 0.0006,-0.0005,-0.0001,-0.0007,-0.0004,
 	bool run=0;
 	
 	float scale_factor=22.0373;
-	short normalize=32768;
+	short normalize=32767;
 	short gain=1;
 	
 int main(int argc, char *argv[])
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 		//Normalizacion de coeficientes a 2^32
 		lowpass_coef[a]=lowpass_coef[a]*scale_factor;
 		bandpass_coef[a]=bandpass_coef[a]*5.5069;	
-		highpass_coef[a]=highpass_coef[a]*scale_factor;
+		highpass_coef[a]=highpass_coef[a]*1.4710;
 	}
 
 	//cout<<lowpass_coef[0]<<"\n";
