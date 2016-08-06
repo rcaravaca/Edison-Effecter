@@ -315,7 +315,7 @@ delayBufLength=retardos;*/
 			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
 			if (err_pb<0)				
-				err_pb = snd_pcm_recover(playback_handle,err_pb,0);
+				//err_pb = snd_pcm_recover(playback_handle,err_pb,0);
 			if (err_pb<0)
 				printf("snd_pcm_writei failed: %s\n", snd_strerror(err_pb));
 			if (err_pb > 0 && err_pb < (long)sizeof(buf))
