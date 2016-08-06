@@ -168,7 +168,7 @@ bool overdrive=false;
 void *startaudio (void *a){
 
 float Buffer;
-short Bff[1];
+short Bff;
 void *punt_buffer=&Bff;
 //******** Parametro para efecto Delay
 //int numSamples=retardos;
@@ -263,7 +263,7 @@ delayBufLength=retardos;*/
 
 			
 			
-			Bff[0]=(low_pass+band_pass+high_pass)*normalize;
+			Bff=(low_pass+band_pass+high_pass)*normalize;
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff[0]);
 			//Buffer[0]=high_pass+band_pass+low_pass;
 			// ****** EFECTO DELAY *************
@@ -310,8 +310,8 @@ delayBufLength=retardos;*/
 			if (data[0]==0)
 				vol = (18*data[1])/9.0;
 
-			Bff[0]=Bff[0]*vol;
-			printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff[0]);
+			Bff=Bff*vol;
+			printf("Muestra: %i, Bff: %i  -->> ",buf[0]);
 			
 			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
