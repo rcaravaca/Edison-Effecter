@@ -312,7 +312,7 @@ delayBufLength=retardos;*/
 
 			Bff[0]=Bff[0]*vol;
 			
-			err_pb = snd_pcm_writei (playback_handle, &Bff, buffer_frames);
+			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
 			if (err_pb<0)				
 				err_pb = snd_pcm_recover(playback_handle,err_pb,0);
