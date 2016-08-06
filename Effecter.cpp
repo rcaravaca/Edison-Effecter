@@ -113,7 +113,7 @@ int main(int argc, char *argv[])
 		Buffer_high[a]=0.0;
 		//Normalizacion de coeficientes a 2^32
 		lowpass_coef[a]=lowpass_coef[a]*scale_factor;
-		bandpass_coef[a]=bandpass_coef[a]*scale_factor;	
+		bandpass_coef[a]=bandpass_coef[a]*5.5069;	
 		highpass_coef[a]=highpass_coef[a]*scale_factor;
 	}
 
@@ -262,7 +262,7 @@ delayBufLength=retardos;*/
 
 //			cout<<" "<<Buffer[0]<<" "<<3*low_pass<<"\n";
 			
-			Bff[0]=(low_pass)*normalize*gain;
+			Bff[0]=(band_pass)*normalize*gain;
 			//printf("Muestra: %i, Bff: %i\n",buf[0],Bff[0]);
 			//Buffer[0]=high_pass+band_pass+low_pass;
 			// ****** EFECTO DELAY *************
