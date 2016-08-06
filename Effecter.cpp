@@ -263,7 +263,7 @@ delayBufLength=retardos;*/
 //			cout<<" "<<Buffer[0]<<" "<<3*low_pass<<"\n";
 			
 			Bff[0]=(low_pass+band_pass+high_pass)*normalize*gain;
-			printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff[0]);
+			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff[0]);
 			//Buffer[0]=high_pass+band_pass+low_pass;
 			// ****** EFECTO DELAY *************
 		/*	channelData[j]=Buffer[0]; // Se llena el buffer con las muestras
