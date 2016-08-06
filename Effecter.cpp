@@ -261,7 +261,7 @@ delayBufLength=retardos;*/
 
 //			cout<<" "<<Buffer[0]<<" "<<3*low_pass<<"\n";
 			
-			Bff[0]=(low_pass+band_pass+high_pass)*normalize;
+			Bff[0]=(low_pass+band_pass+high_pass)*normalize*3;
 			printf("Muestra: %i, Bff: %i\n",buf[0],Bff[0]);
 			//Buffer[0]=high_pass+band_pass+low_pass;
 			// ****** EFECTO DELAY *************
