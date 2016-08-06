@@ -206,7 +206,7 @@ delayBufLength=retardos;*/
 			overdrive=false;
 		
 		if (data[0]==0)
-			vol = data[1];	
+			vol = data[1]/9;	
 
 	//************** Control de ganancia para cada filtro **************//	
 	/*	if (data[0]==1){
@@ -240,7 +240,7 @@ delayBufLength=retardos;*/
 
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
-
+			Bff=Buffer*normalize;
 			//printf("Muestra %i,Buffer Norm %f\n",buf[0],Buffer[0]);
 			//////////////Buffer[0]=buf[0];
 			//******* Pasa bajas ************************
@@ -264,9 +264,9 @@ delayBufLength=retardos;*/
 			high_pass=high_pass+(Buffer_high[order]*highpass_coef[order]);
 			
 
+			ecualizer ();
 			
-			
-			Bff=(low_pass+band_pass+high_pass)*normalize;
+			//Bff=(low_pass+band_pass+high_pass)*normalize;
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
 			//Buffer[0]=high_pass+band_pass+low_pass;
 			// ****** EFECTO DELAY *************
@@ -330,6 +330,13 @@ delayBufLength=retardos;*/
 	}
 //return 0;	
 }
+int a,b,c=0;
+void ecualizer () {
+	
+		a=b+c;
+	
+	}
+
 
 void signalHandler(int a)
 {
