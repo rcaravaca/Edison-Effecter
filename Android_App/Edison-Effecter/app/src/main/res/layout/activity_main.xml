@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.ronald0691.edison_effecter.MainActivity">
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/low_bar"
+        android:indeterminate="false"
+        android:max="9"
+        android:progress="1"
+        android:layout_marginBottom="21dp"
+        android:layout_above="@+id/mid_text"
+        android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/mid_bar"
+        android:max="9"
+        android:progress="1"
+        android:indeterminate="false"
+        android:layout_above="@+id/high_text"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="21dp" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/high_bar"
+        android:max="9"
+        android:progress="1"
+        android:indeterminate="false"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOW"
+        android:id="@+id/low_text"
+        android:layout_above="@+id/low_bar"
+        android:layout_alignParentStart="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MID"
+        android:id="@+id/mid_text"
+        android:layout_marginBottom="21dp"
+        android:layout_alignBottom="@+id/mid_bar"
+        android:layout_alignParentStart="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="HIGH"
+        android:id="@+id/high_text"
+        android:layout_alignBottom="@+id/high_bar"
+        android:layout_marginBottom="21dp"
+        android:layout_alignParentStart="false" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delay"
+        android:id="@+id/Switch_delay"
+        android:checked="false"
+        android:layout_above="@+id/switch_reverb"
+        android:layout_toStartOf="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/switch_reverb" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reverb"
+        android:id="@+id/switch_reverb"
+        android:checked="false"
+        android:layout_above="@+id/switch_overdrive"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/textView" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Overdrive"
+        android:id="@+id/switch_overdrive"
+        android:checked="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/switch_reverb" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Equalizer"
+        android:id="@+id/textView"
+        android:layout_alignBaseline="@+id/low_text"
+        android:layout_alignBottom="@+id/low_text"
+        android:layout_centerHorizontal="true" />
+
+    <SeekBar
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/vol_Bar"
+        android:indeterminate="false"
+        android:max="9"
+        android:progress="1"
+        android:layout_above="@+id/Switch_delay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="VOL"
+        android:id="@+id/vol_text"
+        android:layout_above="@+id/vol_Bar"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Connect BLE"
+        android:id="@+id/ble_connect"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
