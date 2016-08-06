@@ -315,7 +315,7 @@ delayBufLength=retardos;*/
 			Sample=Bff;
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
 			
-			err_pb = snd_pcm_writei (playback_handle, &Sample, buffer_frames);
+			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
 			if (err_pb<0)				
 				err_pb = snd_pcm_recover(playback_handle,err_pb,0);
