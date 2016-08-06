@@ -255,13 +255,13 @@ delayBufLength=retardos;*/
 		
 			}
 			
-			Buffer_high[order]=Buffer;
+			/*Buffer_high[order]=Buffer;
 			Buffer_band[order]=Buffer;
 			Buffer_low[order]=Buffer;
 
 			low_pass=low_pass+(Buffer_low[order]*lowpass_coef[order]);
 			band_pass=band_pass+(Buffer_band[order]*bandpass_coef[order]);
-			high_pass=high_pass+(Buffer_high[order]*highpass_coef[order]);
+			high_pass=high_pass+(Buffer_high[order]*highpass_coef[order]);*/
 			
 
 			ecualizer ();
