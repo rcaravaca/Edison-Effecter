@@ -312,15 +312,14 @@ delayBufLength=retardos;*/
 
 			Bff[0]=Bff[0]*vol;
 			
-			snd_pcm_wait(playback_handle, 1);
-			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
+			err_pb = snd_pcm_writei (playback_handle, &Bff, buffer_frames);
 
 			if (err_pb<0)				
 				err_pb = snd_pcm_recover(playback_handle,err_pb,0);
 			if (err_pb<0)
 				printf("snd_pcm_writei failed: %s\n", snd_strerror(err_pb));
 			if (err_pb > 0 && err_pb < (long)sizeof(buf))
-			printf("Short write (expected %li, wrote %li)\n", (long)sizeof(buf), err_pb);
+				printf("Short write (expected %li, wrote %li)\n", (long)sizeof(buf), err_pb);
 			
 		}
 		
