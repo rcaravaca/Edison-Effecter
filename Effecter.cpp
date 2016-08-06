@@ -308,7 +308,7 @@ delayBufLength=retardos;*/
 		
 			// ****** CONTROL DE VOLUMEN ******* 
 			if (data[0]==0)
-				vol = (2*data[1])/9.0;
+				vol = (18*data[1])/9.0;
 
 			Bff[0]=Bff[0]*vol;
 			
