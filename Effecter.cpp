@@ -169,8 +169,8 @@ void *startaudio (void *a){
 
 float Buffer;
 short Bff;
-short Sample;
-void *punt_buffer=&Sample;
+
+void *punt_buffer=&Bff;
 //******** Parametro para efecto Delay
 //int numSamples=retardos;
 //Arreglo de muestras del tamano numSample
@@ -313,7 +313,7 @@ delayBufLength=retardos;*/
 			
 
 			Bff=Bff*vol;
-			Sample=Bff;
+
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
 			
 			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
