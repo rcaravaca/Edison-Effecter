@@ -311,7 +311,7 @@ delayBufLength=retardos;*/
 				vol = (18*data[1])/9.0;
 
 			Bff=Bff*vol;
-			printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
+			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
 			
 			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
