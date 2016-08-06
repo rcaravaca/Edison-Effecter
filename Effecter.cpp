@@ -237,6 +237,7 @@ delayBufLength=retardos;*/
 
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
+			Bff[0]=Buffer*normalize;
 			//printf("Muestra %i,Buffer Norm %f\n",buf[0],Buffer[0]);
 			//////////////Buffer[0]=buf[0];
 			//******* Pasa bajas ************************
@@ -260,7 +261,7 @@ delayBufLength=retardos;*/
 			high_pass=high_pass+(Buffer_high[order]*highpass_coef[order]);
 			
 
-			Bff[0]=Buffer*normalize;
+			
 			
 			//Bff[0]=(low_pass+band_pass+high_pass)*normalize;
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff[0]);
@@ -307,7 +308,7 @@ delayBufLength=retardos;*/
 		
 			// ****** CONTROL DE VOLUMEN ******* 
 			if (data[0]==0)
-				vol = data[1];
+				vol = data[1]/9.0;
 
 			Bff[0]=Bff[0]*vol;
 			
