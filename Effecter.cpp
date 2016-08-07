@@ -100,7 +100,7 @@ float highpass_coef[] = {0.0008,-0.0000, 0.0006,-0.0005,-0.0001,-0.0007,-0.0004,
 	bool run=0;
 	
 	float scale_factor=22.0373;
-	short normalize=32767;
+	short normalize=10000;
 	short gain=1;
 	
 int main(int argc, char *argv[])
@@ -242,7 +242,7 @@ delayBufLength=retardos;*/
 			Buffer=Buffer/normalize;
 			//Bff=Buffer*normalize;
 
-			ecualizer (Buffer);
+			ecualizer (&Buffer);
 
 			Bff=(low_pass)*normalize*100;
 
@@ -310,7 +310,7 @@ delayBufLength=retardos;*/
 //return 0;	
 }
 //int a,b,c=0;
-void ecualizer (float Buffer_sample) {
+void ecualizer (void *Buffer_sample) {
 	
 		for(i=0;i<(order-1);i++) {
 				
@@ -323,8 +323,8 @@ void ecualizer (float Buffer_sample) {
 		
 			}
 			
-/*			Buffer_high[order]=Buffer;
-			Buffer_band[order]=Buffer;*/
+/*			Buffer_high[order]=Buffer_sample;
+			Buffer_band[order]=Buffer_sample;*/
 			Buffer_low[order]=Buffer_sample;
 
 			low_pass=low_pass+(Buffer_low[order]*lowpass_coef[order]);
