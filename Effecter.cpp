@@ -47,7 +47,7 @@ void signalHandler (int a);
 
 void *startaudio (void *a);
 void getUartData ();
-void ecualizer (float *Buffer);
+void ecualizer (float *Buffer_sample);
 //****************************************************************
 
 float lowpass_coef[] = {0.0002, 0.0002, 0.0002, 0.0003, 0.0003, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0003
@@ -242,7 +242,7 @@ delayBufLength=retardos;*/
 			Buffer=Buffer/normalize;
 			//Bff=Buffer*normalize;
 
-			ecualizer (Buffer);
+			ecualizer (&Buffer);
 
 			Bff=(low_pass)*normalize*100;
 
