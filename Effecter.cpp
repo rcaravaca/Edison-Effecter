@@ -244,7 +244,7 @@ delayBufLength=retardos;*/
 
 			ecualizer (&Buffer);
 
-			Buffer_from_filter=(band_pass)*normalize;
+			Buffer_from_filter=(high_pass)*normalize;
 			Bff=Buffer_from_filter*10;
 			//printf("Muestra: %i Buffer: %f, low_pass: %f, Buffer_from_filter %f, Bff: %i\n",
 			//		buf[0],Buffer, low_pass,Buffer_from_filter,Bff);
@@ -316,21 +316,21 @@ void ecualizer (float *Buffer_sample) {
 		for(i=0;i<(order-1);i++) {
 				
 				//Buffer_low[i]=Buffer_low[i+1];
-				Buffer_band[i]=Buffer_band[i+1];
-				//Buffer_high[i]=Buffer_high[i+1];
+				//Buffer_band[i]=Buffer_band[i+1];
+				Buffer_high[i]=Buffer_high[i+1];
 				//low_pass=low_pass+(Buffer_low[i]*lowpass_coef[i]);
-				band_pass=band_pass+(Buffer_band[i]*bandpass_coef[i]);
-				//high_pass=high_pass+(Buffer_high[i]*highpass_coef[i]);
+				//band_pass=band_pass+(Buffer_band[i]*bandpass_coef[i]);
+				high_pass=high_pass+(Buffer_high[i]*highpass_coef[i]);
 		
 			}
 			
-			//Buffer_high[order]=*Buffer_sample;
-			Buffer_band[order]=*Buffer_sample;
+			Buffer_high[order]=*Buffer_sample;
+			//Buffer_band[order]=*Buffer_sample;
 			//Buffer_low[order]=*Buffer_sample;
 
 			//low_pass=low_pass+(Buffer_low[order]*lowpass_coef[order]);
-			band_pass=band_pass+(Buffer_band[order]*bandpass_coef[order]);
-			//high_pass=high_pass+(Buffer_high[order]*highpass_coef[order]);
+			//band_pass=band_pass+(Buffer_band[order]*bandpass_coef[order]);
+			high_pass=high_pass+(Buffer_high[order]*highpass_coef[order]);
 	
 	}
 
