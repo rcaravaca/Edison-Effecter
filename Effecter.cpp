@@ -244,7 +244,7 @@ delayBufLength=retardos;*/
 
 			ecualizer (Buffer);
 
-			Bff=(low_pass)*normalize*;
+			Bff=(low_pass)*normalize;
 
 			printf("Muestra: %i Buffer: %f, low_pass: %f, Bff: %i\n",buf[0],Buffer, low_pass,Bff);
 
