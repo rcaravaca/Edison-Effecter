@@ -100,7 +100,7 @@ float highpass_coef[] = {0.0008,-0.0000, 0.0006,-0.0005,-0.0001,-0.0007,-0.0004,
 	bool run=0;
 	
 	float scale_factor=22.0373;
-	short normalize=10000;
+	short normalize=5000;
 	short gain=1;
 	
 int main(int argc, char *argv[])
@@ -244,9 +244,9 @@ delayBufLength=retardos;*/
 
 			ecualizer (&Buffer);
 
-			Bff=(low_pass)*normalize*100;
+			Bff=(low_pass)*normalize;
 
-			//printf("Muestra: %i Buffer: %f, low_pass: %f, Bff: %i\n",buf[0],Buffer, low_pass,Bff);
+			printf("Muestra: %i Buffer: %f, low_pass: %f, Bff: %i\n",buf[0],Buffer, low_pass,Bff);
 
 			// ****** EFECTO DELAY *************
 		/*	channelData[j]=Buffer[0]; // Se llena el buffer con las muestras
