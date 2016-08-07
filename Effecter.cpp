@@ -310,7 +310,7 @@ delayBufLength=retardos;*/
 //return 0;	
 }
 //int a,b,c=0;
-void ecualizer (void *Buffer_sample) {
+void ecualizer (float *Buffer_sample) {
 	
 		for(i=0;i<(order-1);i++) {
 				
