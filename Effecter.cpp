@@ -323,8 +323,8 @@ void ecualizer (float *Buffer_sample) {
 		
 			}
 			
-			Buffer_high[order]=Buffer_sample;
-			Buffer_band[order]=Buffer_sample;
+			Buffer_high[order]=*Buffer_sample;
+			Buffer_band[order]=*Buffer_sample;
 			Buffer_low[order]=*Buffer_sample;
 
 			low_pass=low_pass+(Buffer_low[order]*lowpass_coef[order]);
