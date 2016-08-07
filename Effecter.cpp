@@ -325,7 +325,7 @@ void ecualizer (void *Buffer_sample) {
 			
 /*			Buffer_high[order]=Buffer_sample;
 			Buffer_band[order]=Buffer_sample;*/
-			Buffer_low[order]=Buffer_sample;
+			Buffer_low[order]=*Buffer_sample;
 
 			low_pass=low_pass+(Buffer_low[order]*lowpass_coef[order]);
 	/*		band_pass=band_pass+(Buffer_band[order]*bandpass_coef[order]);
