@@ -112,9 +112,9 @@ int main(int argc, char *argv[])
 		Buffer_band[a]=0.0;
 		Buffer_high[a]=0.0;
 		//Normalizacion de coeficientes a 2^32
-		lowpass_coef[a]=lowpass_coef[a]*scale_factor*gain;
-		bandpass_coef[a]=bandpass_coef[a]*5.5069*gain;	
-		highpass_coef[a]=highpass_coef[a]*1.4710*gain;
+		//lowpass_coef[a]=lowpass_coef[a];
+		//bandpass_coef[a]=bandpass_coef[a];	
+		//highpass_coef[a]=highpass_coef[a];
 	}
 
 	//cout<<lowpass_coef[0]<<"\n";
@@ -310,7 +310,7 @@ delayBufLength=retardos;*/
 //return 0;	
 }
 //int a,b,c=0;
-void ecualizer (short Buffer) {
+void ecualizer (float Buffer) {
 	
 		for(i=0;i<(order-1);i++) {
 				
