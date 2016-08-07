@@ -47,7 +47,7 @@ void signalHandler (int a);
 
 void *startaudio (void *a);
 void getUartData ();
-void ecualizer (float Buffer);
+void ecualizer (float *Buffer);
 //****************************************************************
 
 float lowpass_coef[] = {0.0002, 0.0002, 0.0002, 0.0003, 0.0003, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0004, 0.0003
