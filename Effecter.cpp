@@ -240,11 +240,11 @@ delayBufLength=retardos;*/
 
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
-			//Bff=Buffer*normalize;
+			Bff=Buffer*normalize;
 
 			ecualizer (Buffer);
 
-			Bff=(high_pass)*normalize;
+			//Bff=(high_pass)*normalize;
 
 
 
