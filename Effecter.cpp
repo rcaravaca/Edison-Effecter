@@ -167,7 +167,7 @@ bool overdrive=false;
 
 void *startaudio (void *a){
 
-float Buffer;
+float Buffer,Buffer_from_filter;
 short Bff;
 
 void *punt_buffer=&Bff;
@@ -244,9 +244,9 @@ delayBufLength=retardos;*/
 
 			ecualizer (&Buffer);
 
-			Bff=(band_pass)*normalize*100;
-
-			//printf("Muestra: %i Buffer: %f, low_pass: %f, Bff: %i\n",buf[0],Buffer, low_pass,Bff);
+			Buffer_from_filter=(band_pass)*normalize;
+			Bff=Buffer_from_filter;
+			printf("Muestra: %i Buffer: %f, low_pass: %f, Buffer_from_filter, %f, Bff: %i\n",buf[0],Buffer, Buffer_from_filter, low_pass,Bff);
 
 			// ****** EFECTO DELAY *************
 		/*	channelData[j]=Buffer[0]; // Se llena el buffer con las muestras
