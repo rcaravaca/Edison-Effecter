@@ -384,9 +384,9 @@ delayBufLength=retardos;*/
 //return 0;	
 }
 //int a,b,c=0;
-void ecualizer (float *Buffer_sample) {
+inline void ecualizer (float *Buffer_sample) {
 	
-		for(i=0;i<(order-1);i++) {
+		for(i=(order-1);i>0;--i) {
 				
 				Buffer_low[i]=Buffer_low[i+1];
 				Buffer_band[i]=Buffer_band[i+1];
