@@ -269,7 +269,7 @@ delayBufLength=retardos;*/
 		if (data[0]==2)
 			gain_mid = (50*data[1])/9.0;
 		if (data[0]==3)
-			gain_high = (50*data[1])data[1]/9.0;
+			gain_high = (50*data[1])/9.0;
 
 	//************** Control de ganancia para cada filtro **************//	
 	/*	if (data[0]==1){
