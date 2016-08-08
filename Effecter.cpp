@@ -299,8 +299,8 @@ delayBufLength=retardos;*/
 
 			ecualizer (&Buffer);
 
-			Buffer_from_filter=(high_pass)*normalize;
-			Bff=Buffer_from_filter*10;
+			Buffer_from_filter=(low_pass+band_pass+high_pass)*normalize;
+			Bff=Buffer_from_filter;
 			//printf("Muestra: %i Buffer: %f, low_pass: %f, Buffer_from_filter %f, Bff: %i\n",
 			//		buf[0],Buffer, low_pass,Buffer_from_filter,Bff);
 
