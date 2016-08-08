@@ -388,9 +388,9 @@ inline void ecualizer (float *Buffer_sample) {
 	
 		for(i=(order-1);i>0;--i) {
 				
-				Buffer_low[i]=Buffer_low[i+1];
-				Buffer_band[i]=Buffer_band[i+1];
-				Buffer_high[i]=Buffer_high[i+1];
+				Buffer_low[i-1]=Buffer_low[i];
+				Buffer_band[i-1]=Buffer_band[i];
+				Buffer_high[i-1]=Buffer_high[i];
 				low_pass=low_pass+(Buffer_low[i]*lowpass_coef[i]);
 				band_pass=band_pass+(Buffer_band[i]*bandpass_coef[i]);
 				high_pass=high_pass+(Buffer_high[i]*highpass_coef[i]);
