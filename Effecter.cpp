@@ -270,6 +270,8 @@ delayBufLength=retardos;*/
 			gain_mid = (50*data[1])/9.0;
 		if (data[0]==3)
 			gain_high = (50*data[1])/9.0;
+			
+			printf("data 0: %i, data 1: %i", data[0],data[1])
 
 	//************** Control de ganancia para cada filtro **************//	
 	/*	if (data[0]==1){
