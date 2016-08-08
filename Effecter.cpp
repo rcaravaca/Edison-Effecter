@@ -156,7 +156,9 @@ float highpass_coef[] = {0.000812464009532233,-3.07263619456037e-05,0.0006348202
 	
 	float scale_factor=22.0373;
 	short normalize=32767;
-	short gain=1;
+	short gain_low=1;
+	short gain_mid=1;
+	short gain_high=1;
 	
 int main(int argc, char *argv[])
 
@@ -262,6 +264,12 @@ delayBufLength=retardos;*/
 		
 		if (data[0]==0)
 			vol = data[1]/9.0;	
+		if (data[0]==1)
+			gain_low = (100*data[1])/9.0;
+		if (data[0]==2)
+			gain_mid = (50*data[1])/9.0;
+		if (data[0]==3)
+			gain_high = (50*data[1])data[1]/9.0;
 
 	//************** Control de ganancia para cada filtro **************//	
 	/*	if (data[0]==1){
@@ -299,7 +307,7 @@ delayBufLength=retardos;*/
 
 			ecualizer (&Buffer);
 
-			Buffer_from_filter=(100*low_pass+20*band_pass+20*high_pass)*normalize;
+			Buffer_from_filter=(gain_low*low_pass+gain_mid*band_pass+gain_high*high_pass)*normalize;
 			Bff=Buffer_from_filter;
 			//printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
 				//	buf[0],Buffer, Buffer_from_filter,Bff);
