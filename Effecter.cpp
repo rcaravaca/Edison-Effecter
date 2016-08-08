@@ -147,6 +147,9 @@ float highpass_coef[] = {0.000812464009532233,-3.07263619456037e-05,0.0006348202
 	float band_pass=0.0;
 	float high_pass=0.0;
 
+	float low_p=0.0;
+	float band_p=0.0;
+	float high_p=0.0;
 
 	float Buffer_low[121]; //Buffer para filtro pasa bajas
 	float Buffer_band[121]; //Buffer para filtro pasa banda
@@ -308,8 +311,12 @@ delayBufLength=retardos;*/
 			//Bff=Buffer*normalize;
 
 			ecualizer (&Buffer);
+	
+			low_p=low_pass;
+			band_p=band_pass;
+			high_p=high_pass;
 
-			Buffer_from_filter=(gain_low*low_pass+gain_mid*band_pass+gain_high*high_pass);
+			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);
 			Buffer_from_filter*=normalize;
 			Bff=Buffer_from_filter;
 			//printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
