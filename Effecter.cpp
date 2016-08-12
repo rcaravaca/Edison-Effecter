@@ -63,7 +63,9 @@ short temp, latest_input, oldest_input;
 short reverberation_array[N]; 
 short indice = 0; 
 inline void reverb_effect (short Buffer_sample);
-inline void overdrive_effect (short *Buffer_sample);
+
+short out_overdrive;
+inline void overdrive_effect (short Buffer_sample);
 //****************************************************************
 
 float lowpass_coef[] = {0.000158150493402378,0.000203146636521130,0.000246006148032745,0.000286959726055848,
@@ -319,6 +321,11 @@ void *punt_buffer=&Bff;
 			if (reverb==true) {
 				reverb_effect(Bff);
 				Bff=temp;
+			}
+			
+			// ****** EFECTO OVERDRIVE *************
+			if (reverb==true) {
+				overdrive(Bff);
 			} 
 			
 			// ****** CONTROL DE VOLUMEN ******* 
@@ -338,9 +345,9 @@ void *punt_buffer=&Bff;
 		}
 		
 	}
-//return 0;	
+	
 }
-//int a,b,c=0;
+
 inline void ecualizer (float *Buffer_sample) {
 	
 		for(i=(order-1);i>0;--i) {
@@ -395,18 +402,20 @@ inline void reverb_effect (short Buffer_sample) {
 }
 
 
-/*
-inline void overdrive (short *Buffer_sample) {
 
-	if (*Buffer_sample>=1000) {	
-		*Buffer_sample=1000;
-		*Buffer_sample*=1.3;	
+inline void overdrive (short Buffer_sample) {
+
+	if (Buffer_sample>=1000) {	
+		Buffer_sample=1000;
+		Buffer_sample*=1.3;	
 	} else if (*Buffer_sample<=-1000)	{					
-		*Buffer_sample=-1000;
-		*Buffer_sample*=1.3;
+		Buffer_sample=-1000;
+		Buffer_sample*=1.3;
 	}
+	
+	out_overdrive=Buffer_sample;
 
-}*/
+}
 
 void signalHandler(int a)
 {
