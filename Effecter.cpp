@@ -263,7 +263,7 @@ void *punt_buffer=&Bff;
 		else if (data[0]==3)
 			gain_high = (30*data[1])/9.0;
 			
-			printf("data 0: %i, data 1: %i\n", data[0],data[1]);
+			//printf("data 0: %i, data 1: %i\n", data[0],data[1]);
 
 		
 		if ((err = snd_pcm_readi (capture_handle, buf, buffer_frames)) != Frames) {	
