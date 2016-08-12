@@ -17,7 +17,7 @@ using namespace std;
 #define Frames 2
 #define retardos 10
 #define Norma 32767
-#define N 10000
+#define N 5000
 
 unsigned int i;
 snd_pcm_sframes_t err;
@@ -50,7 +50,11 @@ void signalHandler (int a);
 void *startaudio (void *a);
 void getUartData ();
 inline void ecualizer (float *Buffer_sample);
-inline void delay_effect (short *Buffer_sample);
+
+short delay_array[size];
+short delay_sample;
+short indice_delay = 0; 
+inline void delay_effect (short Buffer_sample);
 
 short temp, latest_input, oldest_input;
 short reverberation_array[N]; 
@@ -299,7 +303,8 @@ void *punt_buffer=&Bff;
 
 			// ****** EFECTO DELAY *************
 			if (delay==true) {
-				//delay_effect(Bff);
+				delay_effect(Bff);
+				Bff=delay_sample;
 			
 			// ****** EFECTO REVERB *************
 			} else if (reverb==true) {
@@ -351,42 +356,18 @@ inline void ecualizer (float *Buffer_sample) {
 	}
 
 
-inline void delay_effect (short *Buffer_sample) {
+inline void delay_effect (short Buffer_sample) {
 	
-	//******** Parametro para efecto Delay
-int numSamples=retardos;
-//Arreglo de muestras del tamano numSample
-short channelData[retardos];
-short delayData[retardos];	//Buffer de delay circular demuestras
-int delayBufLength=retardos;	//logitud del buffer curcular
-int dpr=0;
-int dpw=0; //punteros de escritura y lectura para el buffer de delay
-float dryMix_=1; // nivel se senal seca sin retardo
-float wetMix_=0.3; // nive del retardo
-float feedback_=0;//Nivelderealimentacion (0 si no hay retroalimentacion)
-short in,out;
-delayBufLength=retardos;
-int j;
-	//channelData[j]=Buffer_sample; // Se llena el buffer con las muestras
-		if (++j>=numSamples)
-			j=0;
-			if (0){
-			
-			for (int x = 0 ; x < numSamples ; x++ )
-			{
-				in = channelData[x];
-				out = 0;
-					out = dryMix_ * in + wetMix_ * delayData[dpr];
-					delayData[dpw] = in + (delayData[dpr] * feedback_);
-					if (++dpr >= delayBufLength)
-					dpr = 0;
-				if (++dpw >= delayBufLength)
-					dpw = 0;
-					channelData[x] = out;
-					*Buffer_sample=out;
-			}
-		}	
-	}
+	
+	delay_sample = delay_array[indice_delay]; /* Take oldest sample */
+	delay_array[indice_delay] = Buffer_sample;
+
+	if ( index < (size - 1) )
+		indice_delay++;	
+	else	
+		indice_delay = 0;	 
+
+}
 
 
 
