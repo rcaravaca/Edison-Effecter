@@ -367,7 +367,7 @@ delayBufLength=retardos;
 			}
 		}	
 	}
-
+/*
 inline int reverb (short *Buffer_sample) {
 	
 int reverberation_array[N]; 
@@ -403,7 +403,7 @@ inline void overdrive (short *Buffer_sample) {
 	}
 
 }
-
+*/
 void signalHandler(int a)
 {
 	
