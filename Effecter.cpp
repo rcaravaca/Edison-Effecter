@@ -257,11 +257,11 @@ void *punt_buffer=&Bff;
 		if (data[0]==0)
 			vol = data[1]/9.0;	
 		else if (data[0]==1)
-			gain_low = (10*data[1])/9.0;
+			gain_low = (100*data[1])/9.0;
 		else if (data[0]==2)
-			gain_mid = (10*data[1])/9.0;
+			gain_mid = (100*data[1])/9.0;
 		else if (data[0]==3)
-			gain_high = (10*data[1])/9.0;
+			gain_high = (100*data[1])/9.0;
 			
 			//printf("data 0: %i, data 1: %i\n", data[0],data[1]);
 
@@ -280,11 +280,11 @@ void *punt_buffer=&Bff;
 			band_p=band_pass;
 			high_p=high_pass;
 
-			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);
+			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p)/3;
 			Buffer_from_filter*=normalize;
 			Bff=Buffer_from_filter;
-			//printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
-				//buf[0],Buffer, Buffer_from_filter,Bff);
+			printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
+				buf[0],Buffer, Buffer_from_filter,Bff);
 
 			// ****** EFECTO DELAY *************
 		
