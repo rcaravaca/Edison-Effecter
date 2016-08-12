@@ -347,6 +347,7 @@ float wetMix_=0.3; // nive del retardo
 float feedback_=0;//Nivelderealimentacion (0 si no hay retroalimentacion)
 short in,out;
 delayBufLength=retardos;
+int j;
 	//channelData[j]=Buffer_sample; // Se llena el buffer con las muestras
 		if (++j>=numSamples)
 			j=0;
