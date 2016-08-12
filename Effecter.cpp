@@ -382,7 +382,7 @@ short temp, latest_input, oldest_input;
 short reverberation_array[N]; 
 static int index = 0; 
 
-inline void reverb (short *Buffer_sample) {
+inline void reverb_effect (short *Buffer_sample) {
 
 	latest_input=*Buffer_sample;
 	oldest_input=reverberation_array[index] * 0.7; 
