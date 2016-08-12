@@ -293,7 +293,7 @@ void *punt_buffer=&Bff;
 			
 			// ****** EFECTO REVERB *************
 			} else if (reverb==true) {
-				reverb_effect(Buffer_from_filter);
+				reverb_effect(&Buffer_from_filter);
 				Bff=temp;
 			} else {
 				Bff=Buffer_from_filter;
