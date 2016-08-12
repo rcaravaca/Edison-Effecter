@@ -310,7 +310,9 @@ void *punt_buffer=&Bff;
 				Bff=out_sample;
 			
 			// ****** EFECTO REVERB *************
-			} else if (reverb==true) {
+			} 
+			
+			if (reverb==true) {
 				reverb_effect(Bff);
 				Bff=temp;
 			} 
@@ -365,6 +367,8 @@ inline void delay_effect (short Buffer_sample) {
 	delay_sample = Buffer_sample; 
 	old_sample = delay_array[indice_delay]*0.8;
 	out_sample = delay_sample + old_sample;
+
+	delay_array[indice_delay] = delay_sample;
 
 	if ( indice_delay < (size - 1) )
 		indice_delay++;	
