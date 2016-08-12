@@ -193,6 +193,10 @@ int main(int argc, char *argv[])
 		reverberation_array[a]=0;
 	}
 	
+	for (int a=0;a<size;a++) {
+		delay_array[a]=0;
+	}
+	
 	
 
 	//cout<<lowpass_coef[0]<<"\n";
@@ -307,7 +311,7 @@ void *punt_buffer=&Bff;
 			// ****** EFECTO DELAY *************
 			if (delay==true) {
 				delay_effect(Bff);
-				Bff=out_sample;
+				Bff+=delay_sample;
 			
 			// ****** EFECTO REVERB *************
 			} 
@@ -364,11 +368,8 @@ inline void ecualizer (float *Buffer_sample) {
 inline void delay_effect (short Buffer_sample) {
 	
 	
-	delay_sample = Buffer_sample; 
-	old_sample = delay_array[indice_delay]*0.8;
-	out_sample = delay_sample + old_sample;
-
-	delay_array[indice_delay] = out_sample;
+	delay_sample = delay_array[indice_delay]; 
+	delay_array[indice_delay] = Buffer_sample;
 
 	if ( indice_delay < (size - 1) )
 		indice_delay++;	
