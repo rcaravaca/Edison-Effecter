@@ -18,7 +18,7 @@ using namespace std;
 #define retardos 10
 #define Norma 32767
 #define N 5000
-#define size 4000
+#define size 5
 
 unsigned int i;
 snd_pcm_sframes_t err;
