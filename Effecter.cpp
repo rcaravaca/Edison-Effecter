@@ -363,7 +363,7 @@ inline void delay_effect (short Buffer_sample) {
 	delay_sample = delay_array[indice_delay]; /* Take oldest sample */
 	delay_array[indice_delay] = Buffer_sample;
 
-	if ( index < (size - 1) )
+	if ( indice_delay < (size - 1) )
 		indice_delay++;	
 	else	
 		indice_delay = 0;	 
