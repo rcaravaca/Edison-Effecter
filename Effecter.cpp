@@ -292,7 +292,7 @@ void *punt_buffer=&Bff;
 			// ****** CONTROL DE VOLUMEN ******* 
 			Bff=Bff*vol;
 
-			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
+			printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
 			
 			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
