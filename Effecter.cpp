@@ -176,13 +176,11 @@ float highpass_coef[] = {0.000812464009532233,-3.07263619456037e-05,0.0006348202
 	float Buffer_band[121]; //Buffer para filtro pasa banda
 	float Buffer_high[121]; //Buffer para filtro pasa altas
 	unsigned int order=120;
-	bool run=0;
 	
-	float scale_factor=22.0373;
 	short normalize=32767;
-	short gain_low=50;
-	short gain_mid=25;
-	short gain_high=25;
+	short gain_low=10;
+	short gain_mid=10;
+	short gain_high=10;
 	
 int main(int argc, char *argv[])
 
@@ -414,8 +412,7 @@ inline void overdrive_effect (short Buffer_sample) {
 //Funcion para detencion de programa
 void signalHandler(int a)
 {
-	
-	run=true;		
+		
 	if (!snd_pcm_close(capture_handle)) {
 		
 		cout<<"\n -- Finishing capture processing --\n";
