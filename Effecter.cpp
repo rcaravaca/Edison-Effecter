@@ -50,9 +50,9 @@ void signalHandler (int a);
 void *startaudio (void *a);
 void getUartData ();
 inline void ecualizer (float *Buffer_sample);
-inline void delay (float *Buffer_sample);
-inline void reverb (float *Buffer_sample);
-inline void overdrive (float *Buffer_sample);
+inline void delay_effect (float *Buffer_sample);
+inline void reverb_effect (float *Buffer_sample);
+inline void overdrive_effect (float *Buffer_sample);
 //****************************************************************
 
 float lowpass_coef[] = {0.000158150493402378,0.000203146636521130,0.000246006148032745,0.000286959726055848,
@@ -332,7 +332,7 @@ inline void ecualizer (short *Buffer_sample) {
 	}
 
 
-inline void delay (short *Buffer_sample) {
+inline void delay_effect (short *Buffer_sample) {
 	
 	//******** Parametro para efecto Delay
 int numSamples=retardos;
