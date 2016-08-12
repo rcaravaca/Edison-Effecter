@@ -308,7 +308,7 @@ void *punt_buffer=&Bff;
 //return 0;	
 }
 //int a,b,c=0;
-inline void ecualizer (short *Buffer_sample) {
+inline void ecualizer (float *Buffer_sample) {
 	
 		for(i=(order-1);i>0;--i) {
 				
