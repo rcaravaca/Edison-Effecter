@@ -18,7 +18,7 @@ using namespace std;
 #define retardos 10
 #define Norma 32767
 #define N 5000
-#define size 100
+#define size 4000
 
 unsigned int i;
 snd_pcm_sframes_t err;
@@ -360,7 +360,7 @@ inline void ecualizer (float *Buffer_sample) {
 inline void delay_effect (short Buffer_sample) {
 	
 	
-	delay_sample = delay_array[indice_delay] + Buffer_sample; 
+	delay_sample = delay_array[indice_delay]*0.7 + Buffer_sample; 
 	delay_array[indice_delay] = Buffer_sample;
 
 	if ( indice_delay < (size - 1) )
