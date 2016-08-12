@@ -19,7 +19,7 @@ using namespace std;
 #define Norma 32767
 #define N 5000
 #define size 13230
-#define cut 3000
+#define cut 2000
 
 unsigned int i;
 snd_pcm_sframes_t err;
@@ -409,10 +409,10 @@ inline void overdrive_effect (short Buffer_sample) {
 
 	if (Buffer_sample>=cut) {	
 		Buffer_sample=cut;
-		Buffer_sample*=1.3;	
+		Buffer_sample*=1.5;	
 	} else if (Buffer_sample<=-cut)	{					
 		Buffer_sample=-cut;
-		Buffer_sample*=1.3;
+		Buffer_sample*=1.5;
 	}
 	
 	out_overdrive=Buffer_sample;
