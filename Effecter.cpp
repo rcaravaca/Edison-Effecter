@@ -305,7 +305,7 @@ void *punt_buffer=&Bff;
 			// ****** EFECTO DELAY *************
 			if (delay==true) {
 				delay_effect(Bff);
-				Bff+=delay_sample;
+				Bff=delay_sample;
 			
 			// ****** EFECTO REVERB *************
 			} else if (reverb==true) {
@@ -360,7 +360,7 @@ inline void ecualizer (float *Buffer_sample) {
 inline void delay_effect (short Buffer_sample) {
 	
 	
-	delay_sample = delay_array[indice_delay]; 
+	delay_sample = delay_array[indice_delay] + Buffer_sample; 
 	delay_array[indice_delay] = Buffer_sample;
 
 	if ( indice_delay < (size - 1) )
