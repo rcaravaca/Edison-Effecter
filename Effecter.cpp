@@ -285,7 +285,7 @@ void *punt_buffer=&Bff;
 			Buffer_from_filter*=normalize;
 			Bff=Buffer_from_filter;
 			printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
-				//	buf[0],Buffer, Buffer_from_filter,Bff);
+					buf[0],Buffer, Buffer_from_filter,Bff);
 
 			// ****** EFECTO DELAY *************
 		
