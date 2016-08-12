@@ -54,6 +54,8 @@ inline void ecualizer (float *Buffer_sample);
 
 short delay_array[size];
 short delay_sample;
+short old_sample;
+short out_sample;
 short indice_delay = 0; 
 inline void delay_effect (short Buffer_sample);
 
@@ -360,8 +362,9 @@ inline void ecualizer (float *Buffer_sample) {
 inline void delay_effect (short Buffer_sample) {
 	
 	
-	delay_sample = delay_array[indice_delay]*0.7 + Buffer_sample; 
-	delay_array[indice_delay] = Buffer_sample;
+	delay_sample = Buffer_sample; 
+	old_sample = delay_array[indice_delay]*0.8;
+	out_sample = delay_sample + old_sample;
 
 	if ( indice_delay < (size - 1) )
 		indice_delay++;	
@@ -375,7 +378,7 @@ inline void delay_effect (short Buffer_sample) {
 inline void reverb_effect (short Buffer_sample) {
 
 	latest_input=Buffer_sample;
-	oldest_input=reverberation_array[indice]*0.7; 
+	oldest_input=reverberation_array[indice]*0.5; 
 	temp = latest_input + oldest_input;
 
 	reverberation_array[indice] = temp; 
