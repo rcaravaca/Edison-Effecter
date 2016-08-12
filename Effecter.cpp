@@ -294,13 +294,15 @@ void *startaudio (void *a){
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
 
+			/*
 			ecualizer (&Buffer); 		//Eualizador
 	
 			low_p=low_pass;
 			band_p=band_pass;
 			high_p=high_pass;
 
-			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);	
+			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);	*/
+			Buffer_from_filter=Buffer;
 			
 			Bff=Buffer_from_filter*normalize;
 
