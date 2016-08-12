@@ -51,6 +51,10 @@ void *startaudio (void *a);
 void getUartData ();
 inline void ecualizer (float *Buffer_sample);
 inline void delay_effect (short *Buffer_sample);
+
+short temp, latest_input, oldest_input;
+short reverberation_array[N]; 
+short index = 0; 
 inline void reverb_effect (short *Buffer_sample);
 inline void overdrive_effect (short *Buffer_sample);
 //****************************************************************
@@ -177,6 +181,12 @@ int main(int argc, char *argv[])
 		Buffer_band[a]=0.0;
 		Buffer_high[a]=0.0;
 	}
+	
+	for (int a=0;a<N;a++) {
+		reverberation_array[a]=0;
+	}
+	
+	
 
 	//cout<<lowpass_coef[0]<<"\n";
 	pthread_t audiothread;
@@ -378,14 +388,12 @@ int j;
 		}	
 	}
 
-short temp, latest_input, oldest_input;
-short reverberation_array[N]; 
-short index = 0; 
+
 
 inline void reverb_effect (short *Buffer_sample) {
 
 	latest_input=*Buffer_sample;
-	oldest_input=reverberation_array[index] * 0.7; 
+	oldest_input=reverberation_array[index]*0.7; 
 	temp = latest_input + oldest_input;
 
 	reverberation_array[index] = temp; 
