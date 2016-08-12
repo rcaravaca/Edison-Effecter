@@ -283,22 +283,19 @@ void *punt_buffer=&Bff;
 			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);*/
 			
 			Buffer_from_filter=Buffer*normalize;
-			
+			Bff=Buffer_from_filter;
 			//printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
 				//buf[0],Buffer, Buffer_from_filter,Bff);
 
 			// ****** EFECTO DELAY *************
 			if (delay==true) {
-				delay_effect(Buffer_from_filter);
+				delay_effect(Bff);
 			
 			// ****** EFECTO REVERB *************
 			} else if (reverb==true) {
-				reverb_effect(&Buffer_from_filter);
+				reverb_effect(&Bff);
 				Bff=temp;
-			} else {
-				Bff=Buffer_from_filter;
-				
-				}
+			} 
 			
 			// ****** CONTROL DE VOLUMEN ******* 
 			Bff=Bff*vol;
@@ -383,15 +380,12 @@ int j;
 
 short temp, latest_input, oldest_input;
 short reverberation_array[N]; 
+static int index = 0; 
 
 inline void reverb (short *Buffer_sample) {
 
-	static int index = 0; 
-	int temp;
-	float oldest_input;
-	oldest_input = (float)
-	 
-	reverberation_array[index] * 0.7; 
+	latest_input=*Buffer_sample;
+	oldest_input=reverberation_array[index] * 0.7; 
 	temp = latest_input + oldest_input;
 
 	reverberation_array[index] = temp; 
@@ -400,8 +394,6 @@ inline void reverb (short *Buffer_sample) {
 		index++;
 	else
 		index = 0; 
-		  
-		
 }
 
 
