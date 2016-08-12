@@ -408,7 +408,7 @@ inline void overdrive (short Buffer_sample) {
 	if (Buffer_sample>=1000) {	
 		Buffer_sample=1000;
 		Buffer_sample*=1.3;	
-	} else if (*Buffer_sample<=-1000)	{					
+	} else if (Buffer_sample<=-1000)	{					
 		Buffer_sample=-1000;
 		Buffer_sample*=1.3;
 	}
