@@ -398,14 +398,14 @@ inline void reverb_effect (short Buffer_sample) {
 
 	reverberation_array[index] = temp; 
 
-	if ( index < N - 1) 
+	if ( index < (N-1)) 
 		index++;
 	else
 		index = 0; 
 }
 
 
-
+/*
 inline void overdrive (short *Buffer_sample) {
 
 	if (*Buffer_sample>=1000) {	
@@ -416,7 +416,7 @@ inline void overdrive (short *Buffer_sample) {
 		*Buffer_sample*=1.3;
 	}
 
-}
+}*/
 
 void signalHandler(int a)
 {
