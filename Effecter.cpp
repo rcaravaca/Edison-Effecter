@@ -54,7 +54,7 @@ inline void delay_effect (short *Buffer_sample);
 
 short temp, latest_input, oldest_input;
 short reverberation_array[N]; 
-short index = 0; 
+short indice = 0; 
 inline void reverb_effect (short Buffer_sample);
 inline void overdrive_effect (short *Buffer_sample);
 //****************************************************************
@@ -393,15 +393,15 @@ int j;
 inline void reverb_effect (short Buffer_sample) {
 
 	latest_input=Buffer_sample;
-	oldest_input=reverberation_array[index]*0.7; 
+	oldest_input=reverberation_array[indice]*0.7; 
 	temp = latest_input + oldest_input;
 
-	reverberation_array[index] = temp; 
+	reverberation_array[indice] = temp; 
 
-	if ( index < (N-1)) 
-		index++;
+	if ( indice < (N-1)) 
+		indice++;
 	else
-		index = 0; 
+		indice = 0; 
 }
 
 
