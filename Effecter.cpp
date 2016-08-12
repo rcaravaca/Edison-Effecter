@@ -299,7 +299,7 @@ void *punt_buffer=&Bff;
 
 			// ****** EFECTO DELAY *************
 			if (delay==true) {
-				delay_effect(Bff);
+				//delay_effect(Bff);
 			
 			// ****** EFECTO REVERB *************
 			} else if (reverb==true) {
