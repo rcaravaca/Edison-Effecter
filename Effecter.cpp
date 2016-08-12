@@ -380,7 +380,7 @@ int j;
 
 short temp, latest_input, oldest_input;
 short reverberation_array[N]; 
-static int index = 0; 
+short index = 0; 
 
 inline void reverb_effect (short *Buffer_sample) {
 
