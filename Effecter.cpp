@@ -17,6 +17,8 @@ using namespace std;
 #define Frames 2
 #define retardos 10
 #define Norma 32767
+#define N 4000
+
 unsigned int i;
 snd_pcm_sframes_t err;
 snd_pcm_sframes_t err_pb;
@@ -47,7 +49,10 @@ void signalHandler (int a);
 
 void *startaudio (void *a);
 void getUartData ();
-void ecualizer (float *Buffer_sample);
+inline void ecualizer (float *Buffer_sample);
+inline void delay (float *Buffer_sample);
+inline void reverb (float *Buffer_sample);
+inline void overdrive (float *Buffer_sample);
 //****************************************************************
 
 float lowpass_coef[] = {0.000158150493402378,0.000203146636521130,0.000246006148032745,0.000286959726055848,
@@ -171,10 +176,6 @@ int main(int argc, char *argv[])
 		Buffer_low[a]=0.0;
 		Buffer_band[a]=0.0;
 		Buffer_high[a]=0.0;
-		//Normalizacion de coeficientes a 2^32
-		//lowpass_coef[a]=lowpass_coef[a];
-		//bandpass_coef[a]=bandpass_coef[a];	
-		//highpass_coef[a]=highpass_coef[a];
 	}
 
 	//cout<<lowpass_coef[0]<<"\n";
@@ -231,19 +232,7 @@ float Buffer,Buffer_from_filter;
 short Bff;
 
 void *punt_buffer=&Bff;
-//******** Parametro para efecto Delay
-//int numSamples=retardos;
-//Arreglo de muestras del tamano numSample
-/*short channelData[retardos];
-short delayData[retardos];	//Buffer de delay circular demuestras
-int delayBufLength=retardos;	//logitud del buffer curcular
-int dpr=0;
-int dpw=0; //punteros de escritura y lectura para el buffer de delay
-float dryMix_=1; // nivel se senal seca sin retardo
-float wetMix_=0.3; // nive del retardo
-float feedback_=0;//Nivelderealimentacion (0 si no hay retroalimentacion)
-short in,out;
-delayBufLength=retardos;*/
+
 //int j=0;
 
 	//for(unsigned int z=0;z<sizeof(delayData);z++)
@@ -276,31 +265,6 @@ delayBufLength=retardos;*/
 			
 			//printf("data 0: %i, data 1: %i\n", data[0],data[1]);
 
-	//************** Control de ganancia para cada filtro **************//	
-	/*	if (data[0]==1){
-			low=data[1]/9.0;
-			for(unsigned int g=0;g<120;g++){
-				lowpass_coef[g]=lowpass_coef[g]*low;
-			}
-		}
-
-		if (data[0]==2){
-			mid=data[1]/9.0;
-			for(unsigned int g=0;g<120;g++){
-				bandpass_coef[g]=bandpass_coef[g]*mid;
-			}
-		}
-		
-		if (data[0]==3){
-			high=data[1]/9.0;
-			for(unsigned int g=0;g<120;g++){
-				highpass_coef[g]=highpass_coef[g]*high;
-			}
-		}
-
-*/
-			
-
 		
 		if ((err = snd_pcm_readi (capture_handle, buf, buffer_frames)) != Frames) {	
 		} else {
@@ -323,48 +287,8 @@ delayBufLength=retardos;*/
 				//	buf[0],Buffer, Buffer_from_filter,Bff);
 
 			// ****** EFECTO DELAY *************
-		/*	channelData[j]=Buffer[0]; // Se llena el buffer con las muestras
-			if (++j>=numSamples)
-				j=0;
-
-			if (0){
-				
-				for (int x = 0 ; x < numSamples ; x++ )
-				{
-					in = channelData[x];
-					out = 0;
-
-					out = dryMix_ * in + wetMix_ * delayData[dpr];
-
-					delayData[dpw] = in + (delayData[dpr] * feedback_);
-
-					if (++dpr >= delayBufLength)
-						dpr = 0;
-					if (++dpw >= delayBufLength)
-						dpw = 0;
-
-					channelData[x] = out;
-
-					Buffer[0]=out;
-				}
-			}*/
-
-
-//			printf("Data: %i Vol: %f\n",data[0],vol);
-			
-			
-
-			/*if (overdrive==true && Buffer[0]<1000) {	
-				Buffer[0]=1000;
-				Buffer[0]*=1.3;	
-			} else if (overdrive==true && Buffer[0]<-1000)	{					Buffer[0]=-1000;
-				Buffer[0]*=1.3;
-			}*/
-			
 		
 			// ****** CONTROL DE VOLUMEN ******* 
-			
-
 			Bff=Bff*vol;
 
 			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
@@ -384,7 +308,7 @@ delayBufLength=retardos;*/
 //return 0;	
 }
 //int a,b,c=0;
-inline void ecualizer (float *Buffer_sample) {
+inline void ecualizer (short *Buffer_sample) {
 	
 		for(i=(order-1);i>0;--i) {
 				
@@ -407,6 +331,78 @@ inline void ecualizer (float *Buffer_sample) {
 	
 	}
 
+
+inline void delay (short *Buffer_sample) {
+	
+	//******** Parametro para efecto Delay
+int numSamples=retardos;
+//Arreglo de muestras del tamano numSample
+short channelData[retardos];
+short delayData[retardos];	//Buffer de delay circular demuestras
+int delayBufLength=retardos;	//logitud del buffer curcular
+int dpr=0;
+int dpw=0; //punteros de escritura y lectura para el buffer de delay
+float dryMix_=1; // nivel se senal seca sin retardo
+float wetMix_=0.3; // nive del retardo
+float feedback_=0;//Nivelderealimentacion (0 si no hay retroalimentacion)
+short in,out;
+delayBufLength=retardos;
+	//channelData[j]=Buffer_sample; // Se llena el buffer con las muestras
+		if (++j>=numSamples)
+			j=0;
+			if (0){
+			
+			for (int x = 0 ; x < numSamples ; x++ )
+			{
+				in = channelData[x];
+				out = 0;
+					out = dryMix_ * in + wetMix_ * delayData[dpr];
+					delayData[dpw] = in + (delayData[dpr] * feedback_);
+					if (++dpr >= delayBufLength)
+					dpr = 0;
+				if (++dpw >= delayBufLength)
+					dpw = 0;
+					channelData[x] = out;
+					Buffer[0]=out;
+			}
+		}	
+	}
+
+inline int reverb (short *Buffer_sample) {
+	
+int reverberation_array[N]; 
+
+	static int index = 0; 
+	int temp;
+	float oldest_input;
+	oldest_input = (float)
+	 
+	reverberation_array[index] * 0.7; 
+	temp = (int) latest_input + (int) oldest_input;
+
+	reverberation_array[index] = temp; 
+
+	if ( index < N - 1) 
+		index++;
+	else
+		index = 0; 
+		  
+	return (temp);	
+}
+
+
+
+inline void overdrive (short *Buffer_sample) {
+
+	if (Buffer_sample>=1000) {	
+		Buffer_sample=1000;
+		Buffer_sample*=1.3;	
+	} else if (Buffer_sample<=-1000)	{					
+		Buffer_sample=-1000;
+		Buffer_sample*=1.3;
+	}
+
+}
 
 void signalHandler(int a)
 {
