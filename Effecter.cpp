@@ -274,14 +274,13 @@ void *punt_buffer=&Bff;
 			Buffer=Buffer/normalize;
 			//Bff=Buffer*normalize;
 
-			/*ecualizer (&Buffer);
+			ecualizer (&Buffer);
 	
 			low_p=low_pass;
 			band_p=band_pass;
 			high_p=high_pass;
 
-			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);*/
-			Buffer_from_filter=Buffer;
+			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);
 			Buffer_from_filter*=normalize;
 			Bff=Buffer_from_filter;
 			//printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
