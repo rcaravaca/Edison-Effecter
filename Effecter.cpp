@@ -19,6 +19,7 @@ using namespace std;
 #define Norma 32767
 #define N 5000
 #define size 13230
+#define cut 3000
 
 unsigned int i;
 snd_pcm_sframes_t err;
@@ -324,7 +325,7 @@ void *punt_buffer=&Bff;
 			}
 			
 			// ****** EFECTO OVERDRIVE *************
-			if (reverb==true) {
+			if (overdrive==true) {
 				overdrive_effect(Bff);
 				Bff=out_overdrive;
 			} 
@@ -406,11 +407,11 @@ inline void reverb_effect (short Buffer_sample) {
 
 inline void overdrive_effect (short Buffer_sample) {
 
-	if (Buffer_sample>=1000) {	
-		Buffer_sample=1000;
+	if (Buffer_sample>=cut) {	
+		Buffer_sample=cut;
 		Buffer_sample*=1.3;	
-	} else if (Buffer_sample<=-1000)	{					
-		Buffer_sample=-1000;
+	} else if (Buffer_sample<=-cut)	{					
+		Buffer_sample=-cut;
 		Buffer_sample*=1.3;
 	}
 	
