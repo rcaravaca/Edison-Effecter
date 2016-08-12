@@ -325,7 +325,8 @@ void *punt_buffer=&Bff;
 			
 			// ****** EFECTO OVERDRIVE *************
 			if (reverb==true) {
-				overdrive(Bff);
+				overdrive_effect(Bff);
+				Bff=out_overdrive;
 			} 
 			
 			// ****** CONTROL DE VOLUMEN ******* 
@@ -403,7 +404,7 @@ inline void reverb_effect (short Buffer_sample) {
 
 
 
-inline void overdrive (short Buffer_sample) {
+inline void overdrive_effect (short Buffer_sample) {
 
 	if (Buffer_sample>=1000) {	
 		Buffer_sample=1000;
