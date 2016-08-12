@@ -363,7 +363,7 @@ delayBufLength=retardos;
 				if (++dpw >= delayBufLength)
 					dpw = 0;
 					channelData[x] = out;
-					Buffer[0]=out;
+					*Buffer_sample=out;
 			}
 		}	
 	}
@@ -394,12 +394,12 @@ int reverberation_array[N];
 
 inline void overdrive (short *Buffer_sample) {
 
-	if (Buffer_sample>=1000) {	
-		Buffer_sample=1000;
-		Buffer_sample*=1.3;	
-	} else if (Buffer_sample<=-1000)	{					
-		Buffer_sample=-1000;
-		Buffer_sample*=1.3;
+	if (*Buffer_sample>=1000) {	
+		*Buffer_sample=1000;
+		*Buffer_sample*=1.3;	
+	} else if (*Buffer_sample<=-1000)	{					
+		*Buffer_sample=-1000;
+		*Buffer_sample*=1.3;
 	}
 
 }
