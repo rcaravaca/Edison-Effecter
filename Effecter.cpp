@@ -160,7 +160,9 @@ float highpass_coef[] = {0.000812464009532233,-3.07263619456037e-05,0.0006348202
 							-0.000106466283396724,-0.000497511976500387,0.000634820204731149,-3.07263619456037e-05,
 							0.000812464009532233};
 	
-
+	bool delay=false;
+	bool reverb=false;
+	bool overdrive=false;
 
 	float low_pass=0.0;
 	float band_pass=0.0;
@@ -201,21 +203,21 @@ int main(int argc, char *argv[])
 	}
 	
 	
-
-	//cout<<lowpass_coef[0]<<"\n";
 	pthread_t audiothread;
 
-//	short *buffer=buf; 
 	signal(SIGINT, signalHandler); //Catura de interrupcion
 
-		// Open de connection with audio card argv[1]
+	//Funciones de configuracion
 	ini_caption_connect(argv[1]);
 	ini_playback_connect(argv[1]);
 	
-        uart = mraa_uart_init(0);
+	//Unicializacion de la UART
+    uart = mraa_uart_init(0);
 	
+	//Creacion del hilo 2
 	pthread_create(&audiothread, NULL, startaudio, NULL);	
 
+	//Ejecucion del hilo 1
 	while(1){
 		getUartData();
 	}
@@ -231,6 +233,7 @@ int main(int argc, char *argv[])
 
 }
 
+//Funcion para obtencio de datos de la UART
 void getUartData (){
 	
 	if (uart == NULL) {
@@ -239,91 +242,81 @@ void getUartData (){
 	
 	signal(SIGINT, signalHandler); //Catura de interrupcion
 
-        mraa_uart_read(uart, buffer_uart, sizeof(buffer_uart));
+    mraa_uart_read(uart, buffer_uart, sizeof(buffer_uart));
 	
 	data[0]=buffer_uart[1]-48;
 	data[1]=buffer_uart[2]-48;
 }
 
-bool delay=false;
-bool reverb=false;
-bool overdrive=false;
-
-
+//Funcion de procesamiento
 void *startaudio (void *a){
 
-float Buffer,Buffer_from_filter;
-short Bff;
-
-void *punt_buffer=&Bff;
-
-//int j=0;
-
-	//for(unsigned int z=0;z<sizeof(delayData);z++)
-	//	delayData[z]=0;
+	float Buffer,Buffer_from_filter;
+	short Bff;
+	void *punt_buffer=&Bff;
 
 	while(1){
+		
+		// bandera para dato de efecto delay
 		if(data[0]==4 && data[1]==1)
 			delay=true;			
 		else if (data[0]==4 && data[1]==2)
 			delay=false;
 
+		// bandera para dato de efecto reverb
 		if(data[0]==5 && data[1]==1)
 			reverb=true;			
 		else if (data[0]==5 && data[1]==2)
 			reverb=false;
 
+		// bandera para dato de efecto everdrive
 		if(data[0]==6 && data[1]==1)
 			overdrive=true;			
 		else if (data[0]==6 && data[1]==2)
 			overdrive=false;
 		
+		// banderas para dato de volumen y ganacias
 		if (data[0]==0)
 			vol = data[1]/9.0;	
 		else if (data[0]==1)
-			gain_low = (100*data[1])/9.0;
+			gain_low = (20*data[1])/9.0;
 		else if (data[0]==2)
-			gain_mid = (100*data[1])/9.0;
+			gain_mid = (20*data[1])/9.0;
 		else if (data[0]==3)
-			gain_high = (100*data[1])/9.0;
+			gain_high = (20*data[1])/9.0;
 			
-			//printf("data 0: %i, data 1: %i\n", data[0],data[1]);
 
-		
+		//lectura de las muestras
 		if ((err = snd_pcm_readi (capture_handle, buf, buffer_frames)) != Frames) {	
+			printf("Capture open error: %s\n", snd_strerror(err));
+			exit(EXIT_FAILURE);
 		} else {
 
 
 			Buffer=buf[0];
 			Buffer=Buffer/normalize;
-			//Bff=Buffer*normalize;
 
-			ecualizer (&Buffer);
+			ecualizer (&Buffer); 		//Eualizador
 	
 			low_p=low_pass;
 			band_p=band_pass;
 			high_p=high_pass;
 
-			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);
-			//Buffer_from_filter=Buffer;
+			Buffer_from_filter=(gain_low*low_p+gain_mid*band_p+gain_high*high_p);	
 			
 			Bff=Buffer_from_filter*normalize;
-			//printf("Muestra: %i Buffer: %f, Buffer_from_filter %f, Bff: %i\n",
-				//buf[0],Buffer, Buffer_from_filter,Bff);
+
 
 			// ****** EFECTO DELAY *************
 			if (delay==true) {
 				delay_effect(Bff);
-				Bff+=delay_sample;
-			
-			// ****** EFECTO REVERB *************
+				Bff+=delay_sample;					
 			} 
-			
+			// ****** EFECTO REVERB *************
 			if (reverb==true) {
 				reverb_effect(Bff);
 				Bff=temp;
-			}
-			
+			}			
 			// ****** EFECTO OVERDRIVE *************
 			if (overdrive==true) {
 				overdrive_effect(Bff);
@@ -331,10 +324,9 @@ void *punt_buffer=&Bff;
 			} 
 			
 			// ****** CONTROL DE VOLUMEN ******* 
-			Bff=Bff*vol;
-
-			//printf("Muestra: %i, Bff: %i  -->> ",buf[0],Bff);
+			Bff=Bff*vol;			
 			
+			//Se escriben las muestras
 			err_pb = snd_pcm_writei (playback_handle, &punt_buffer, buffer_frames);
 
 			if (err_pb<0)				
@@ -350,6 +342,7 @@ void *punt_buffer=&Bff;
 	
 }
 
+// Funcion ecualizador
 inline void ecualizer (float *Buffer_sample) {
 	
 		for(i=(order-1);i>0;--i) {
@@ -373,7 +366,7 @@ inline void ecualizer (float *Buffer_sample) {
 	
 	}
 
-
+//Funcion efecto delay
 inline void delay_effect (short Buffer_sample) {
 	
 	
@@ -388,7 +381,7 @@ inline void delay_effect (short Buffer_sample) {
 }
 
 
-
+//Funcion efecto reverb
 inline void reverb_effect (short Buffer_sample) {
 
 	latest_input=Buffer_sample;
@@ -403,8 +396,7 @@ inline void reverb_effect (short Buffer_sample) {
 		indice = 0; 
 }
 
-
-
+//Funcion efecto overdrive
 inline void overdrive_effect (short Buffer_sample) {
 
 	if (Buffer_sample>=cut) {	
@@ -419,17 +411,18 @@ inline void overdrive_effect (short Buffer_sample) {
 
 }
 
+//Funcion para detencion de programa
 void signalHandler(int a)
 {
 	
 	run=true;		
 	if (!snd_pcm_close(capture_handle)) {
 		
-		cout<<"\n -- Finishing processing --\n";
+		cout<<"\n -- Finishing capture processing --\n";
 		//exit(0);
 	}
 	if (!snd_pcm_close(playback_handle)) {
-		cout<<"\n -- Finishing processing --\n";
+		cout<<"\n -- Finishing playback processing --\n";
 	//	exit(0);
 	}
 
@@ -438,7 +431,7 @@ void signalHandler(int a)
 }
 
 
-	   
+// Funcion para configuracion de reproduccion	   
 void ini_playback_connect (char *Device){
 
 	if ((err_pb = snd_pcm_open(&playback_handle, Device, SND_PCM_STREAM_PLAYBACK, 0)) < 0) {
@@ -461,7 +454,7 @@ void ini_playback_connect (char *Device){
 
 }
 
-
+// Funcion para configuracion de captura
 void ini_caption_connect (char *Device){
 
 	if ((err = snd_pcm_open (&capture_handle, Device , SND_PCM_STREAM_CAPTURE, 0)) < 0) {
